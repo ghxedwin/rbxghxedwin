@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Edwin – Beitreten</title>
+<style>
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+font-family:Arial,sans-serif;background:#f3f4f6;color:#111}
+.card{width:min(92%,430px);background:white;border-radius:24px;padding:28px;
+box-sizing:border-box;text-align:center;box-shadow:0 8px 30px #0001}
+h1{margin:0 0 12px;font-size:28px}
+p{color:#555;line-height:1.45}
+#timer{font-size:52px;font-weight:700;margin:24px 0}
+#unlock{display:none}
+.profile{width:100%;border-radius:18px;margin-top:18px}
+.button{display:inline-block;padding:14px 22px;border-radius:14px;background:#111;
+color:white;text-decoration:none;font-weight:700;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="card">
+<h1 id="title">Folge zuerst meinem Kanal</h1>
+<p id="message">Komm danach noch einmal auf diese Seite zurück.</p>
+<div id="timer" style="display:none">00:15</div>
+
+<div id="unlock">
+<h2>Hier ist mein Profil</h2>
+<img class="profile" src="edwin_profil.jpg" alt="Edwins Profil">
+<p><b>Roblox:</b> ghxedwin<br><b>Username:</b> @Popelbein_5</p>
+<a class="button" href="#" onclick="alert('Hier deinen Roblox-Beitrittslink eintragen!');return false;">
+Zum Beitreten
+</a>
+</div>
+</div>
+
+<script>
+const KEY = "edwin_returned";
+const hasVisited = localStorage.getItem(KEY) === "yes";
+
+if (!hasVisited) {
+  // Erster Besuch: kein Countdown.
+  localStorage.setItem(KEY, "yes");
+} else {
+  // Zweiter Besuch: 15-Sekunden-Countdown.
+  document.getElementById("message").textContent =
+    "Du bist wieder da. Warte 15 Sekunden.";
+  const timer = document.getElementById("timer");
+  timer.style.display = "block";
+
+  let seconds = 15;
+  const interval = setInterval(() => {
+    seconds--;
+    timer.textContent = "00:" + String(seconds).padStart(2,"0");
+
+    if (seconds <= 0) {
+      clearInterval(interval);
+      timer.style.display = "none";
+      document.getElementById("title").textContent = "Geschafft!";
+      document.getElementById("message").style.display = "none";
+      document.getElementById("unlock").style.display = "block";
+    }
+  }, 1000);
+}
+</script>
+</body>
+</html>
